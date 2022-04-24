@@ -1,6 +1,24 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+
+from django.http import Http404, HttpResponse
+from django.shortcuts import get_list_or_404, render
+
+
+from .models import Question
+
 # Create your views here.
+
 
 def index(request):
     return HttpResponse("hello")
+
+
+def list(request):
+    q = get_list_or_404(Question)
+    context={'question_list': q}
+    return render(request,'quiz/detail.html',context)
+
+
+def detail(request, question_id: int):
+    q = get_list_or_404(Question,id=question_id)
+    context={'question_list': q}
+    return render(request,'quiz/detail.html',context)
