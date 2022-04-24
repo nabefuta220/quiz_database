@@ -32,5 +32,5 @@ python manage.py createsuperuser
 
 ```bash
 python manage.py runserver
-(このあと、http://127.0.0.1:8000/にアクセスすることでサーバーが開けます。)
+(このあと、<http://127.0.0.1:8000/>にアクセスすることでサーバーが開けます。)
 ```
