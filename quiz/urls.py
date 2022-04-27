@@ -12,7 +12,7 @@ urlpatterns = [
     #/quiz/tag/
     path('tag/', views.taglist, name='taglist'),
     #/quiz/tag/[tagname]/
-    path('tag/<str:tagname>',views.tagtree,name='tag'),
+    path('tag/tree/<str:tagname>',views.tagtree,name='tag'),
     #/quiz/tag/lists/[tagname]/
     path('tag/lists/<str:tagname>', views.tag_include, name='lists'),
 ]
