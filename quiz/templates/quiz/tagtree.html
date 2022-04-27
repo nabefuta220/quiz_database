@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>tag:{{target_tag}}</title>
+</head>
+
+<body>
+    <h2>
+        {{target_tag}}に属するタグ一覧
+        </h2>
+       <p> {{ target_tag.parament_tag }}</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Tag</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for sub_tag in child %}
+            <tr>
+                <td><a href="{% url 'tag' sub_tag %}"> {{sub_tag}}</a></td>
+            <tr>
+            {% endfor %}
+            <tr>
+            <td> all</td>
+            </tr>
+        </tbody>
+        
+    </table>
+    <!--一つ上のタグに戻るボタンをつける-->
+
+    {% if parament is None %}
+    <a href="{% url 'taglist' %}">
+    {% else %}
+    <a href="{% url 'tag' parament %}">
+        
+    {% endif %}
+    一つ上のタグに戻る
+    </a>
+    
+</body>
+
+</html>

@@ -12,7 +12,8 @@
             <tr>
                 <th>Problem ID</th>
                 <th>Problem</th>
-                <th> Answer </th>
+                <th>Answer </th>
+                <th>Tag</th>
             </tr>
         </thead>
         <tbody>
@@ -22,6 +23,11 @@
                 <td> {{question.id}}</td>
                 <td> {{question}}</td>
                 <td> {{question.answer_text}}</td>
+                {% if question.tag is None %}
+                <td> None</td>
+                {% else %}
+                <td> {{question.tag}}</td>
+                {%endif %}
             </tr>
             {% endfor %}
         </tbody>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>tags</title>
+</head>
+
+<body>
+    <h2>
+        タグ一覧
+    </h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Tag</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for tag in tags %}
+            <tr>
+                <td><a href="{% url 'tag' tag %}"> {{tag}}</a></td>
+            <tr>
+                {% endfor %}
+            <tr>
+                <td> <a href="{% url 'lists' target_tag %}"> all</a></td>
+            </tr>
+        </tbody>
+
+    </table>
+   
+
+</body>
+
+</html>
