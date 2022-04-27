@@ -45,7 +45,6 @@ def tagtree(request,tagname:str):
 def tag_include(request,tagname):
     
     tag=Tag.objects.get(name=tagname)
-    print(tag)
     query=tag_include_sub(tag)
     
     
@@ -56,7 +55,6 @@ def tag_include(request,tagname):
 def tag_include_sub(tagname:Tag):
     query = Q(tag=tagname)
     child=tagname.child_tag.all()
-    print(child)
     for tags in child:
         query|= tag_include_sub(tags)
     return query
