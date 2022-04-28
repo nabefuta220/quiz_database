@@ -60,5 +60,5 @@ def tag_include_sub(tagname:Tag):
     return query
 
 def Quiz_check(request,answer, number):
-    context = [answer:1]
-    return render(request, 'quiz_result_HTML', context)
+    context = {'answer':1}
+    return render(request, 'quiz/quiz_result.html', context)
