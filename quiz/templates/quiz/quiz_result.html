@@ -1,0 +1,22 @@
+<!DOCTIPE html>
+<html>
+    <head>
+        <title>答え合わせ</title>
+    </head>
+    <body>
+        {% if answer == 1%}
+                <h1>正解!</h1>
+        {%else%}
+                <h2>はずれ…</h2>
+        {%endif%}
+    </body>
+</html>
+
+<form action="post">
+    {% csrf_token %}
+    <input type="text">
+
+    <button type="submit" name="next_button">次の問題へ</button>
+    <button type="submit" name="exit_button">終</button>
+    
+</form>

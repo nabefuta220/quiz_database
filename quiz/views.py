@@ -58,3 +58,7 @@ def tag_include_sub(tagname:Tag):
     for tags in child:
         query|= tag_include_sub(tags)
     return query
+
+def Quiz_check(request,answer, number):
+    context = [answer:1]
+    return render(request, 'quiz_result_HTML', context)
