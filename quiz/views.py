@@ -1,12 +1,9 @@
 
-import queue
 from django.db.models import Q
-from django.http import  HttpResponse
+from django.http import HttpResponse
 from django.shortcuts import get_list_or_404, get_object_or_404, render
 
-
-
-from .models import Question,Tag
+from .models import Question, Tag
 
 # Create your views here.
 
@@ -60,5 +57,7 @@ def tag_include_sub(tagname:Tag):
     return query
 
 def Quiz_check(request,answer, number):
-    context = {'answer':1}
+    question=Question.objects.get(id=number)
+    correct_answer=question.answer_text
+    context = {'answer':correct_answer is answer}
     return render(request, 'quiz/quiz_result.html', context)
