@@ -9,7 +9,7 @@ from .models import Question
 
 
 def index(request):
-    return HttpResponse("hello")
+    return render(request, 'quiz/jikken5-1html.html', None)
 
 
 def list(request):
