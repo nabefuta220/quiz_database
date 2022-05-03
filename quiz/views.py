@@ -72,7 +72,7 @@ def tag_include_sub(tagname:Tag):
 
 def Quiz_check(request,answer:str, tagname:str,round:int):
     """
-    解答確認画面を表示する
+    解答判定画面を表示する
     """
     #ボタンが押されたときの処理
     if request.method == "POST":
@@ -82,7 +82,7 @@ def Quiz_check(request,answer:str, tagname:str,round:int):
             
         elif "exit_button" in request.POST:
             return redirect("index")
-            
+
     if tagname == 'all':
         question = Question.objects.all()[round]
     else:
@@ -115,17 +115,3 @@ def serve_problem(request,tagname:str,round:int):
         print(question)
         #問題を出題する
         return render(request,'hoge.html',{'problem':question})
-
-def button_pressed(request):
-    """
-    ボタンが押されたときの処理
-    """
-    if request.method == "POST":
-        
-        if "next_button" in request.POST:
-            print(request.POST["next_button"])
-            print(1)
-            pass
-        elif "finish_button" in request.POST:
-            # 以下にfinish_buttonがクリックされた時の処理を書いてく
-            pass
