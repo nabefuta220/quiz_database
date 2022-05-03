@@ -109,7 +109,7 @@ def serve_problem(request,tagname:str,round:int):
             question = Question.objects.filter(query)[round]
     except IndexError:
         #終了画面を出す
-        return render(request, 'huga.html', None)
+        return render(request, 'quiz/end.html', None)
     else:
         print('next:')
         print(question)
