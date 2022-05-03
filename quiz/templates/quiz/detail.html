@@ -7,10 +7,16 @@
 </head>
 
 <body>
+    <h1>{{message}}</h1>
+    {% if tag is not None%}
+    <form action="{% url 'question' tag 0 %}">
+    {% csrf_token %}
+    <button type="submit" name="start_button">この問題を解く</button>
+    </form>
+    {% endif %}
     <table>
         <thead>
             <tr>
-                <th>Problem ID</th>
                 <th>Problem</th>
                 <th>Answer </th>
                 <th>Tag</th>
@@ -20,7 +26,6 @@
             
             {% for question in question_list %}
             <tr>
-                <td> {{question.id}}</td>
                 <td> {{question}}</td>
                 <td> {{question.answer_text}}</td>
                 {% if question.tag is None %}
@@ -32,7 +37,18 @@
             {% endfor %}
         </tbody>
     </table>
-
+{% if tag is not None%}
+    {% if tag is 'all' %}
+        <form action="{% url 'taglist' %}">
+        {% csrf_token %}
+        <button type="submit">一つ前に戻る</button>
+    {%else%}
+        <form action="{% url 'tag' tag %}">
+        {% csrf_token %}
+        <button type="submit">一つ前に戻る</button>
+    {% endif %}
+    </form>
+{% endif %}
 </body>
 
 </html>
