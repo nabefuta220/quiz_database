@@ -1,6 +1,6 @@
 
 from django.db.models import Q
-from django.shortcuts import get_list_or_404, get_object_or_404, render
+from django.shortcuts import get_list_or_404, get_object_or_404, redirect, render
 
 from .models import Question, Tag
 
@@ -74,6 +74,15 @@ def Quiz_check(request,answer:str, tagname:str,round:int):
     """
     解答確認画面を表示する
     """
+    #ボタンが押されたときの処理
+    if request.method == "POST":
+        print("poseted")
+        if "next_button" in request.POST:
+            return redirect("question",tagname,round+1)
+            
+        elif "exit_button" in request.POST:
+            return redirect("index")
+            
     if tagname == 'all':
         question = Question.objects.all()[round]
     else:
@@ -82,7 +91,7 @@ def Quiz_check(request,answer:str, tagname:str,round:int):
         question=Question.objects.filter(query)[round]
     print(question)
     correct_answer=question.answer_text
-    context = {'answer':correct_answer is answer}
+    context = {'answer':correct_answer is answer,'tagname':tagname,'round':round}
     return render(request, 'quiz/quiz_result.html', context)
 
 
@@ -102,6 +111,21 @@ def serve_problem(request,tagname:str,round:int):
         #終了画面を出す
         return render(request, 'huga.html', None)
     else:
+        print('next:')
         print(question)
         #問題を出題する
         return render(request,'hoge.html',{'problem':question})
+
+def button_pressed(request):
+    """
+    ボタンが押されたときの処理
+    """
+    if request.method == "POST":
+        
+        if "next_button" in request.POST:
+            print(request.POST["next_button"])
+            print(1)
+            pass
+        elif "finish_button" in request.POST:
+            # 以下にfinish_buttonがクリックされた時の処理を書いてく
+            pass
