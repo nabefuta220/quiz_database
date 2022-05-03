@@ -16,5 +16,6 @@ urlpatterns = [
     #/quiz/tag/lists/[tagname]/
     path('tag/lists/<str:tagname>', views.tag_include, name='lists'),
     path('answer/next/answer=<str:answer>,id=<int:number>', views.Quiz_check, name='next'),
+    # path('answer/next/answer=<str:answer>,tag=<str:tagneme>,round=<int:round>', views.Quiz_check, name='next'),
     path('answer/title/', views.Quiz_check, name='title'),
 ]
