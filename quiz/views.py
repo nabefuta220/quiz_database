@@ -39,11 +39,10 @@ def tagtree(request,tagname:str):
     context = {'target_tag': tagname,'child':child_list,'parament':target.parament_tag}
     return render(request, 'quiz/tagtree.html', context)
 
-def tag_include(request,tagname):
+def tag_include(request,tagname:str):
     
     tag=Tag.objects.get(name=tagname)
     query=tag_include_sub(tag)
-    
     
     problems = get_list_or_404(Question, query)
     context = {'question_list': problems}
@@ -56,8 +55,13 @@ def tag_include_sub(tagname:Tag):
         query|= tag_include_sub(tags)
     return query
 
-def Quiz_check(request,answer, number):
-    question=Question.objects.get(id=number)
+def Quiz_check(request,answer:str, tagname:str,round:int):
+    
+    tag=Tag.objects.get(name=tagname)
+    query=tag_include_sub(tag)
+
+    question=Question.objects.filter(query)[round]
+    print(question)
     correct_answer=question.answer_text
     context = {'answer':correct_answer is answer}
     return render(request, 'quiz/quiz_result.html', context)
