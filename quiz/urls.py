@@ -18,5 +18,5 @@ urlpatterns = [
     #/quiznext/answer=[answer],tag=[tagname],round=[round]/
     path('answer/next/answer=<str:answer>,tag=<str:tagname>,round=<int:round>', views.Quiz_check, name='next'),
     #/quiz/question/tag=[tagname],round=[round]
-    path('question/ag=<str:tagname>,round=<int:round>',views.serve_problem, name='question'),
+    path('question/tag=<str:tagname>,round=<int:round>',views.serve_problem, name='question'),
 ]

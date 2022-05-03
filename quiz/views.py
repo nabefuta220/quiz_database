@@ -1,6 +1,5 @@
 
 from django.db.models import Q
-from django.http import HttpResponse
 from django.shortcuts import get_list_or_404, get_object_or_404, render
 
 from .models import Question, Tag
@@ -20,7 +19,7 @@ def list(request):
     問題リストを表示する
     """
     q = get_list_or_404(Question)
-    context={'question_list': q}
+    context={'question_list': q,'message':'問題一覧','tag':'all'}
     return render(request,'quiz/detail.html',context)
 
 
@@ -29,7 +28,7 @@ def detail(request, question_id: int):
     該当する問題の詳細を表示する
     """
     q = get_list_or_404(Question,id=question_id)
-    context={'question_list': q}
+    context = {'question_list': q, 'message': '問題詳細'}
     return render(request,'quiz/detail.html',context)
 
 
@@ -61,7 +60,7 @@ def tag_include(request,tagname:str):
     query=tag_include_sub(tag)
     
     problems = get_list_or_404(Question, query)
-    context = {'question_list': problems}
+    context = {'question_list': problems, 'message':f'{tagname}に属する問題一覧','tag':tagname}
     return render(request, 'quiz/detail.html', context)
 
 def tag_include_sub(tagname:Tag):
@@ -75,10 +74,12 @@ def Quiz_check(request,answer:str, tagname:str,round:int):
     """
     解答確認画面を表示する
     """
-    tag=Tag.objects.get(name=tagname)
-    query=tag_include_sub(tag)
-
-    question=Question.objects.filter(query)[round]
+    if tagname == 'all':
+        question = Question.objects.all()[round]
+    else:
+        tag = Tag.objects.get(name=tagname)
+        query=tag_include_sub(tag)
+        question=Question.objects.filter(query)[round]
     print(question)
     correct_answer=question.answer_text
     context = {'answer':correct_answer is answer}
@@ -90,14 +91,17 @@ def serve_problem(request,tagname:str,round:int):
     問題を出題する
     (すべての問題を出題し終わったときは終了画面を出す)
     """
-    tag = Tag.objects.get(name=tagname)
-    query = tag_include_sub(tag)
     try:
-        question = Question.objects.filter(query)[round]
-    except Exception as e:
+        if tagname == 'all':
+            question=Question.objects.all()[round]
+        else:
+            tag = Tag.objects.get(name=tagname)
+            query = tag_include_sub(tag)
+            question = Question.objects.filter(query)[round]
+    except IndexError:
         #終了画面を出す
-        print(e)
         return render(request, 'huga.html', None)
     else:
+        print(question)
         #問題を出題する
         return render(request,'hoge.html',{'problem':question})
