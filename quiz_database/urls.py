@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-
+import quiz
 urlpatterns = [
-    path('quiz/',include('quiz.urls')),
+    #path('/',quiz.views.index),
+    path('',include('quiz.urls')),
     path('admin/', admin.site.urls),
 ]
