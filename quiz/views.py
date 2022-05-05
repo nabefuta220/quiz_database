@@ -77,13 +77,14 @@ def Quiz_check(request, tagname:str,round:int):
     #ボタンが押されたときの処理
     if request.method == "POST":
         print("poseted")
+        print(request.POST)
         if "next_button" in request.POST:
-            return redirect("question",tagname,round+1)
+            return redirect("check",tagname,round+1)
             
         elif "exit_button" in request.POST:
             return redirect("index")
 
-        if "next_button" in request.POST:
+        if "send" in request.POST:
             answer = request.POST["enter"]
     if tagname == 'all':
         question = Question.objects.all()[round]
@@ -93,8 +94,8 @@ def Quiz_check(request, tagname:str,round:int):
         question=Question.objects.filter(query)[round]
     print(question)
     correct_answer=question.answer_text
-
-    context = {'answer':correct_answer is answer,'tagname':tagname,'round':round}
+    print(correct_answer)
+    context = {'answer':correct_answer == answer,'tagname':tagname,'round':round}
     return render(request, 'quiz/quiz_result.html', context)
 
 
@@ -117,4 +118,4 @@ def serve_problem(request,tagname:str,round:int):
         print('next:')
         print(question)
         #問題を出題する
-        return render(request,'hoge.html',{'problem':question, "tagname":tagname, "round":round})
+        return render(request, 'quiz/Enter_Answer.html', {'problem': question, "tagname": tagname, "round": round})
