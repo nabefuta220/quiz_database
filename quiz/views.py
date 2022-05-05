@@ -91,6 +91,7 @@ def Quiz_check(request,answer:str, tagname:str,round:int):
         question=Question.objects.filter(query)[round]
     print(question)
     correct_answer=question.answer_text
+
     context = {'answer':correct_answer is answer,'tagname':tagname,'round':round}
     return render(request, 'quiz/quiz_result.html', context)
 
