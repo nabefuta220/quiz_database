@@ -1,17 +1,16 @@
-<!DOCTIPE html>
+<!DOCTYPE html>
 <html>
     <head>
         <title>回答</title>
     </head>
     <body>
+        {{problem.question_text}}
+        <form method="POST" action="{%url 'next' tagname round %}">
+            {% csrf_token %}
+            <input type="text" name = "enter">
         
+            <button type="submit" name="send">送信</button>
+        </form>
     </body>
 </html>
 
-<form action="post">
-    {% csrf_token %}
-    <input type="text">
-
-    <button type="submit" name="check">送信</button>
-    
-</form>
