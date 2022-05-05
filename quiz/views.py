@@ -76,8 +76,6 @@ def Quiz_check(request, tagname:str,round:int):
     """
     #ボタンが押されたときの処理
     if request.method == "POST":
-        print("poseted")
-        print(request.POST)
         if "next_button" in request.POST:
             return redirect("check",tagname,round+1)
             
@@ -92,9 +90,7 @@ def Quiz_check(request, tagname:str,round:int):
         tag = Tag.objects.get(name=tagname)
         query=tag_include_sub(tag)
         question=Question.objects.filter(query)[round]
-    print(question)
     correct_answer=question.answer_text
-    print(correct_answer)
     context = {'answer':correct_answer == answer,'tagname':tagname,'round':round}
     return render(request, 'quiz/quiz_result.html', context)
 
@@ -115,7 +111,5 @@ def serve_problem(request,tagname:str,round:int):
         #終了画面を出す
         return render(request, 'quiz/end.html', None)
     else:
-        print('next:')
-        print(question)
         #問題を出題する
         return render(request, 'quiz/Enter_Answer.html', {'problem': question, "tagname": tagname, "round": round})
