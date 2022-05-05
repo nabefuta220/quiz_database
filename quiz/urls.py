@@ -17,4 +17,5 @@ urlpatterns = [
     path('tag/lists/<str:tagname>', views.tag_include, name='lists'),
     path('answer/next/?answer=<str:answer>,id=<int:number>', view.Quiz_check, name='next'),
     path('answer/title/', view.Quiz_check, name='title'),
+    path('enter/anser/?question=<str:question>', view.Answer_Form, name='check')
 ]
