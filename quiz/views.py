@@ -70,7 +70,7 @@ def tag_include_sub(tagname:Tag):
         query|= tag_include_sub(tags)
     return query
 
-def Quiz_check(request,answer:str, tagname:str,round:int):
+def Quiz_check(request, tagname:str,round:int):
     """
     解答判定画面を表示する
     """
@@ -83,6 +83,8 @@ def Quiz_check(request,answer:str, tagname:str,round:int):
         elif "exit_button" in request.POST:
             return redirect("index")
 
+        if "next_button" in request.POST:
+            answer = request.POST["enter"]
     if tagname == 'all':
         question = Question.objects.all()[round]
     else:
@@ -115,4 +117,4 @@ def serve_problem(request,tagname:str,round:int):
         print('next:')
         print(question)
         #問題を出題する
-        return render(request,'hoge.html',{'problem':question})
+        return render(request,'hoge.html',{'problem':question, "tagname":tagname, "round":round})

@@ -5,7 +5,7 @@
     </head>
     <body>
         {{problem.question_text}}
-        <form method="POST" action="post">
+        <form method="POST" action="{%url 'next' tagname round %}">
             {% csrf_token %}
             <input type="text" name = "enter">
         
