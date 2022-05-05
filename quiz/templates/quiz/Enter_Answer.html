@@ -5,14 +5,12 @@
     </head>
     <body>
         {{problem.question_text}}
+        <form method="POST" action="post">
+            {% csrf_token %}
+            <input type="text" name = "enter">
+        
+            <button type="submit" name="send">送信</button>
+        </form>
     </body>
 </html>
 
-<form method="POST" action="post">
-    {% csrf_token %}
-    <input type="text" name = "enter">
-
-    <button type="submit" name="send">送信</button>
-
-    
-</form>
